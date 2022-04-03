@@ -29,12 +29,12 @@ jobs:
             filterOutClosed: true
             # Only return if PR is not in draft state
             filterOutDraft: 1
-        - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON.body}"
+        - run: echo "Your PR is ${prNumber} and its JSON is ${prBody}"
           if: success() && steps.PR.outputs.number
           env:
             prNumber: ${{ steps.PR.outputs.number }}
             # JSON object with the full PR object
-            prJSON: ${{ steps.PR.outputs.pr }}
+            prBody: ${{ steps.PR.outputs.pr.body }}
             # Direct access to common PR properties
             prUrl: ${{ steps.PR.outputs.pr_url }}
             prTitle: ${{ steps.PR.outputs.pr_title }}
