@@ -34,7 +34,6 @@ jobs:
           env:
             prNumber: ${{ steps.PR.outputs.number }}
             # JSON object with the full PR object
-            prBody: ${{ steps.PR.outputs.pr.body }}
             # Direct access to common PR properties
             prUrl: ${{ steps.PR.outputs.pr_url }}
             prTitle: ${{ steps.PR.outputs.pr_title }}
