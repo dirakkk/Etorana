@@ -1,10 +1,7 @@
 
 
-name: getPRDescription
-
-# Controls when the workflow will run
+name: Recuperation de la liste des tickets JIRA de la PR
 on:
-
   pull_request:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,12 +26,14 @@ jobs:
             filterOutClosed: true
             # Only return if PR is not in draft state
             filterOutDraft: 1
-        - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON}"
+        - run: 
+            echo "On merge la PR \n${prTitle}"
+            echo "Les tickets JiRa ci-dessous seront passés à Terminé\n"
+            echo "${prBody}"       
           if: success() && steps.PR.outputs.number
           env:
             prNumber: ${{ steps.PR.outputs.number }}
             # JSON object with the full PR object
-            prJSON: ${{ steps.PR.outputs.pr }}
             # Direct access to common PR properties
             prUrl: ${{ steps.PR.outputs.pr_url }}
             prTitle: ${{ steps.PR.outputs.pr_title }}
@@ -43,3 +42,4 @@ jobs:
             prMergedAt: ${{ steps.PR.outputs.pr_merged_at }}
             prClosedAt: ${{ steps.PR.outputs.pr_closed_at }}
             prLabel: ${{ steps.PR.outputs.pr_labels }}
+            prMilestones: ${{ steps.PR.outputs.pr_milestones }}            
